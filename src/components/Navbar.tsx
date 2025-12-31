@@ -54,8 +54,8 @@ export default function Navbar() {
   
   return (
     <motion.header
-      className="fixed bottom-4 left-0 right-0 z-40 flex justify-center"
-      initial={{ y: 100 }}
+      className="fixed top-4 left-0 right-0 z-40 flex justify-center"
+      initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30, delay: 0.5 }}
     >
