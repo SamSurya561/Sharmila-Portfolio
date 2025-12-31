@@ -8,7 +8,8 @@ import {
   useDragControls,
 } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Home, User, Code, FolderKanban, Mail } from 'lucide-react';
+import { Home, User, Code, FolderKanban, Mail, Menu, X } from 'lucide-react';
+import { Button } from "./ui/button";
 
 const LIQUID_GLASS_CLASSES =
   "backdrop-blur-xl saturate-180 bg-white/5 dark:bg-black/10 border-t border-b border-white/10 shadow-lg shadow-black/20";
@@ -28,6 +29,8 @@ export default function Navbar() {
   const navRef = useRef<HTMLUListElement>(null);
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
   const dragControls = useDragControls();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > 50);
@@ -57,9 +60,19 @@ export default function Navbar() {
     
     updateIndicator();
     window.addEventListener('resize', updateIndicator);
-    return () => window.removeEventListener('resize', updateIndicator);
 
-  }, [activeSection]);
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      window.removeEventListener('resize', updateIndicator);
+      document.body.style.overflow = 'auto';
+    }
+
+  }, [activeSection, isMobileMenuOpen]);
   
   function onDragEnd(event: any, info: any) {
     if (!navRef.current) return;
@@ -67,7 +80,6 @@ export default function Navbar() {
     const indicatorWidth = indicatorStyle.width;
     let finalPosition = info.point.x - navBounds.left - indicatorWidth / 2;
     
-    // Find the closest link
     let closestLink = null;
     let minDistance = Infinity;
 
@@ -95,6 +107,11 @@ export default function Navbar() {
     }
   }
 
+  const handleMobileLinkClick = (href: string) => {
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    setIsMobileMenuOpen(false);
+  }
+
   return (
     <motion.header
       className="fixed top-4 left-0 right-0 z-40 flex justify-center px-4"
@@ -104,11 +121,64 @@ export default function Navbar() {
     >
       <nav
         className={cn(
-          "flex items-center justify-center rounded-full p-1 md:p-2 w-full max-w-md md:max-w-2xl",
+          "flex items-center justify-center rounded-full p-1 md:p-2 w-full max-w-sm md:max-w-2xl",
           LIQUID_GLASS_CLASSES
         )}
       >
-        <ul ref={navRef} className="relative flex items-center w-full justify-around">
+        {/* Mobile Hamburger Menu Button */}
+        <div className="flex justify-between items-center w-full md:hidden px-4">
+            <span className="text-sm font-bold">{activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</span>
+            <Button size="icon" variant="ghost" onClick={() => setIsMobileMenuOpen(true)}>
+                <Menu className="w-6 h-6"/>
+            </Button>
+        </div>
+
+        {/* Mobile Menu Panel */}
+        {isMobileMenuOpen && (
+            <motion.div 
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 md:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+                <motion.div 
+                    className="fixed top-0 right-0 h-full w-3/4 max-w-[300px] bg-background/80 backdrop-blur-xl border-l border-white/10 p-8"
+                    initial={{ x: "100%" }}
+                    animate={{ x: 0 }}
+                    exit={{ x: "100%" }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 40 }}
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <Button size="icon" variant="ghost" onClick={() => setIsMobileMenuOpen(false)} className="absolute top-4 right-4">
+                        <X className="w-6 h-6"/>
+                    </Button>
+                    <ul className="flex flex-col items-start space-y-6 mt-16">
+                        {links.map((link) => (
+                            <li key={link.href}>
+                                <a
+                                    href={link.href}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleMobileLinkClick(link.href)
+                                    }}
+                                    className={cn(
+                                        "flex items-center gap-4 text-xl font-medium transition-colors",
+                                        activeSection === link.href.substring(1) ? "text-foreground" : "text-foreground/60 hover:text-foreground"
+                                    )}
+                                >
+                                    <link.icon className="w-6 h-6"/>
+                                    {link.label}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </motion.div>
+            </motion.div>
+        )}
+
+        {/* Desktop Navigation */}
+        <ul ref={navRef} className="relative hidden md:flex items-center w-full justify-around">
           <motion.div
             className="absolute h-full rounded-full nav-indicator cursor-grab"
             style={{...indicatorStyle}}
@@ -130,7 +200,7 @@ export default function Navbar() {
                   document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
                 }}
                 className={cn(
-                  "relative z-10 flex flex-col items-center justify-center text-xs font-medium transition-colors h-12 md:h-12 rounded-full w-full",
+                  "relative z-10 flex flex-col items-center justify-center text-xs font-medium transition-colors h-14 w-full rounded-full",
                   activeSection === link.href.substring(1) ? "text-foreground" : "text-foreground/60 hover:text-foreground"
                 )}
               >
