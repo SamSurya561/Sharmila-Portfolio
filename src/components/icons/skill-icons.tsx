@@ -72,7 +72,6 @@ const CanvaIcon = (props) => (
   </svg>
 );
 
-
 const CorelDrawIcon = (props) => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
         <rect width="24" height="24" rx="4" fill="#008E44"/>
@@ -130,7 +129,7 @@ export const skillIcons: { [key: string]: React.ElementType } = {
   "Adobe XD": AdobeXDIcon,
   "Adobe Photoshop": PhotoshopIcon,
   "Adobe Illustrator": IllustratorIcon,
-  "Adobe In Design": InDesignIcon,
+  "Adobe InDesign": InDesignIcon,
   Canva: CanvaIcon,
   CorelDraw: CorelDrawIcon,
   "User Research": UserResearchIcon,
