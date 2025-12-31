@@ -20,7 +20,7 @@ const ProjectCard = ({ project }: { project: DocumentData }) => {
 
   return (
     <motion.div
-      className={`relative rounded-3xl overflow-hidden group ${LIQUID_GLASS_CLASSES} ${span} ${height} flex flex-col`}
+      className={`relative rounded-3xl overflow-hidden group ${LIQUID_GLASS_CLASSES} ${span} ${height} flex flex-col min-h-[350px]`}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
@@ -36,15 +36,15 @@ const ProjectCard = ({ project }: { project: DocumentData }) => {
         />
       )}
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-      <div className="relative z-10 flex flex-col h-full p-8">
+      <div className="relative z-10 flex flex-col h-full p-6 md:p-8">
         <div className="flex-grow">
           <div className="flex flex-wrap gap-2 mb-4">
             {allTags.map((tag: string) => (
               <Badge key={tag} variant="secondary" className="bg-black/20 dark:bg-white/20 border-none backdrop-blur-sm">{tag}</Badge>
             ))}
           </div>
-          <h3 className="text-2xl font-bold text-foreground">{title}</h3>
-          <p className="text-foreground/80 mt-2">{summary}</p>
+          <h3 className="text-xl md:text-2xl font-bold text-foreground">{title}</h3>
+          <p className="text-foreground/80 mt-2 text-sm md:text-base">{summary}</p>
         </div>
         <div className="mt-8">
           <Button variant="outline" className="rounded-full bg-transparent border-foreground/50 hover:bg-foreground/10 text-foreground">
@@ -106,9 +106,9 @@ export default function AllProjectsPage() {
       >
         All Projects
       </motion.h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-fr">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
         {loading && Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className={`rounded-3xl p-8 ${i % 4 === 0 || i % 4 === 3 ? 'md:col-span-2' : 'md:col-span-1'} md:h-96 bg-white/5 dark:bg-black/10 animate-pulse`}></div>
+          <div key={i} className={`rounded-3xl p-8 ${i % 4 === 0 || i % 4 === 3 ? 'md:col-span-2' : 'md:col-span-1'} h-80 md:h-96 bg-white/5 dark:bg-black/10 animate-pulse`}></div>
         ))}
         {!loading && projects && projects.map((p) => (
           <ProjectCard key={p.id} project={p} />

@@ -43,15 +43,22 @@ export default function Navbar() {
   });
 
   useEffect(() => {
-    if (navRef.current) {
-      const activeLink = navRef.current.querySelector(`[data-section="${activeSection}"]`) as HTMLElement;
-      if (activeLink) {
-        setIndicatorStyle({
-          width: activeLink.offsetWidth,
-          left: activeLink.offsetLeft,
-        });
+    const updateIndicator = () => {
+      if (navRef.current) {
+        const activeLink = navRef.current.querySelector(`[data-section="${activeSection}"]`) as HTMLElement;
+        if (activeLink) {
+          setIndicatorStyle({
+            width: activeLink.offsetWidth,
+            left: activeLink.offsetLeft,
+          });
+        }
       }
-    }
+    };
+    
+    updateIndicator();
+    window.addEventListener('resize', updateIndicator);
+    return () => window.removeEventListener('resize', updateIndicator);
+
   }, [activeSection]);
   
   function onDragEnd(event: any, info: any) {
@@ -90,18 +97,18 @@ export default function Navbar() {
 
   return (
     <motion.header
-      className="fixed top-4 left-0 right-0 z-40 flex justify-center"
+      className="fixed top-4 left-0 right-0 z-40 flex justify-center px-4"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30, delay: 0.5 }}
     >
       <nav
         className={cn(
-          "flex items-center justify-center rounded-full p-2",
+          "flex items-center justify-center rounded-full p-1 md:p-2 w-full max-w-md md:max-w-2xl",
           LIQUID_GLASS_CLASSES
         )}
       >
-        <ul ref={navRef} className="relative flex items-center">
+        <ul ref={navRef} className="relative flex items-center w-full justify-around">
           <motion.div
             className="absolute h-full rounded-full nav-indicator cursor-grab"
             style={{...indicatorStyle}}
@@ -115,7 +122,7 @@ export default function Navbar() {
             whileDrag={{ cursor: 'grabbing' }}
           />
           {links.map((link) => (
-            <li key={link.href} data-section={link.href.substring(1)}>
+            <li key={link.href} data-section={link.href.substring(1)} className="flex-1">
               <Link
                 href={link.href}
                 onClick={(e) => {
@@ -123,12 +130,12 @@ export default function Navbar() {
                   document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
                 }}
                 className={cn(
-                  "relative z-10 flex flex-col items-center justify-center text-xs font-medium transition-colors w-24 h-12 rounded-full",
+                  "relative z-10 flex flex-col items-center justify-center text-xs font-medium transition-colors h-12 md:h-12 rounded-full w-full",
                   activeSection === link.href.substring(1) ? "text-foreground" : "text-foreground/60 hover:text-foreground"
                 )}
               >
                 <link.icon className="w-5 h-5 mb-1"/>
-                <span>{link.label}</span>
+                <span className="hidden sm:inline">{link.label}</span>
               </Link>
             </li>
           ))}

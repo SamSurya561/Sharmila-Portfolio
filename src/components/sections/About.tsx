@@ -44,7 +44,7 @@ export default function About() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Clean, functional, and emotional design.</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">Clean, functional, and emotional design.</h2>
           <div className="space-y-4 text-foreground/80 text-base md:text-lg">
             <p>
               I'm Sharmila S, a passionate UI/UX and Graphic Designer dedicated to crafting experiences that are not only beautiful but also deeply functional and emotionally resonant.

@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <section id="home" className="relative w-full h-screen flex flex-col items-center justify-center text-center px-4">
       <motion.h2 
-        className="text-lg md:text-xl uppercase tracking-[0.3em] text-foreground/60 mb-4"
+        className="text-base md:text-xl uppercase tracking-[0.3em] text-foreground/60 mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -16,7 +16,7 @@ export default function Hero() {
         UI/UX & Graphic Designer
       </motion.h2>
       <motion.h1 
-        className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter"
+        className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
