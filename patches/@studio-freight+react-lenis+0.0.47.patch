@@ -1,0 +1,45 @@
+diff --git a/node_modules/@studio-freight/react-lenis/dist/react-lenis.mjs b/node_modules/@studio-freight/react-lenis/dist/react-lenis.mjs
+index 89337d2..582f3c7 100644
+--- a/node_modules/@studio-freight/react-lenis/dist/react-lenis.mjs
++++ b/node_modules/@studio-freight/react-lenis/dist/react-lenis.mjs
+@@ -1,6 +1,6 @@
+-import e, { createContext as t, useContext as n, useRef as o, useEffect as r, useImperativeHandle as i } from "react";
++import e, { createContext as t, useContext as n, useRef as o, useEffect as r, useImperativeHandle as i } from "react";
+ import { Lenis as l } from "@studio-freight/lenis";
+-import { createRoot as s } from "react-dom/client";
++import { createRoot as s } from "react-dom/client";
+ const a = t();
+ function u() {
+   return n(a);
+diff --git a/node_modules/@studio-freight/react-lenis/package.json b/node_modules/@studio-freight/react-lenis/package.json
+index 548a313..b22956f 100644
+--- a/node_modules/@studio-freight/react-lenis/package.json
++++ b/node_modules/@studio-freight/react-lenis/package.json
+@@ -29,7 +29,7 @@
+     "react": ">=18",
+     "react-dom": ">=18"
+   },
+   "peerDependenciesMeta": {
+     "@studio-freight/lenis": {
+       "optional": true
+     }
+   },
+   "dependencies": {
+     "@studio-freight/is": "^0.2.2"
+   }
+}
+\ No newline at end of file
++  "peerDependencies": {
++    "@studio-freight/lenis": "*",
++    "react": "^17 || ^18 || ^19",
++    "react-dom": "^17 || ^18 || ^19"
++  },
++  "peerDependenciesMeta": {
++    "@studio-freight/lenis": {
++      "optional": true
++    }
++  },
++  "dependencies": {
++    "@studio-freight/is": "^0.2.2"
++  }
++}

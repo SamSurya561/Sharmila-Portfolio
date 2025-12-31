@@ -1,0 +1,37 @@
+diff --git a/node_modules/@studio-freight/react-lenis/dist/react-lenis.mjs b/node_modules/@studio-freight/react-lenis/dist/react-lenis.mjs
+index 4c83020..06d910a 100644
+--- a/node_modules/@studio-freight/react-lenis/dist/react-lenis.mjs
++++ b/node_modules/@studio-freight/react-lenis/dist/react-lenis.mjs
+@@ -1,5 +1,5 @@
+-import e, { forwardRef as y, useRef as n, useEffect as t, useImperativeHandle as l } from "react";
+-import r from "react-dom";
++import e, { forwardRef as y, useRef as n, useEffect as t, useImperativeHandle as l } from "react";
++import { flushSync as r } from "react-dom";
+ import s from "@studio-freight/lenis";
+ var i = typeof window > "u" ? t : e.useLayoutEffect;
+ function u({ children: o, root: c, options: a, isStopped: f, lenisRef: m,rafPriority:p }) {
+@@ -35,7 +35,7 @@
+     return v;
+   }, [c, JSON.stringify(a), f, p]);
+   t(() => {
+-    c || r.flushSync(() => {
++    c || r(() => {
+       d.current = [...document.body.children];
+     });
+   }, [c]);
+diff --git a/node_modules/@studio-freight/react-lenis/package.json b/node_modules/@studio-freight/react-lenis/package.json
+index 3a54b6c..9d47ac6 100644
+--- a/node_modules/@studio-freight/react-lenis/package.json
++++ b/node_modules/@studio-freight/react-lenis/package.json
+@@ -29,8 +29,8 @@
+   },
+   "peerDependencies": {
+     "@studio-freight/lenis": "*",
+-    "react": "^17 || ^18",
+-    "react-dom": "^17 || ^18"
++    "react": "^17 || ^18 || ^19",
++    "react-dom": "^17 || ^18 || ^19"
+   },
+   "dependencies": {
+     "tslib": "^2.6.2"
+
