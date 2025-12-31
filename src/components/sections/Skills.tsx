@@ -4,7 +4,7 @@ import { skillIcons } from '@/components/icons/skill-icons';
 import React from 'react';
 
 const skills = {
-  "Design Tools": ["Figma", "Adobe XD", "Photoshop", "Illustrator", "Sketch"],
+  "Design Tools": ["Figma", "Adobe XD", "Adobe In Design", "Adobe Photoshop", "Adobe Illustrator", "Canva", "CorelDraw"],
   "Soft Skills": ["User Research", "Prototyping", "Wireframing", "Communication", "Teamwork"]
 }
 

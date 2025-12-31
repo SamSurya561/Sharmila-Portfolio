@@ -17,25 +17,41 @@ const AdobeXDIcon = (props) => (
 const PhotoshopIcon = (props) => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <rect width="24" height="24" rx="4" fill="#31A8FF"/>
-    <path d="M7 7H11.5C12.8807 7 14 8.11929 14 9.5C14 10.8807 12.8807 12 11.5 12H7V7Z" fill="white"/>
-    <path d="M10 12H13.5C14.8807 12 16 13.1193 16 14.5C16 15.8807 14.8807 17 13.5 17H10V12Z" fill="white"/>
+    <path d="M7 7H11.5C12.8807 7 14 8.11929 14 9.5C14 10.8807 12.8807 12 11.5 12H7V7Z" fill="#E8F5FF"/>
+    <path d="M10 12H13.5C14.8807 12 16 13.1193 16 14.5C16 15.8807 14.8807 17 13.5 17H10V12Z" fill="#E8F5FF"/>
   </svg>
 );
 
 const IllustratorIcon = (props) => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <rect width="24" height="24" rx="4" fill="#FF9A00"/>
-    <path d="M8 7H10L12 12L14 7H16L12 17L8 7Z" fill="white"/>
+    <path d="M8 7H10L12 12L14 7H16L12 17L8 7Z" fill="#FFF2E0"/>
   </svg>
 );
 
-const SketchIcon = (props) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path d="M12 2L2 8.5L12 22L22 8.5L12 2Z" fill="#F7B500"/>
-    <path d="M2 8.5L12 12.5L22 8.5L12 2L2 8.5Z" fill="#FEE298"/>
-    <path d="M2 8.5L12 22L12 12.5L2 8.5Z" fill="#FAD24A"/>
-    <path d="M22 8.5L12 22L12 12.5L22 8.5Z" fill="#F7B500"/>
-  </svg>
+const InDesignIcon = (props) => (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <rect width="24" height="24" rx="4" fill="#FF3366"/>
+        <path d="M7 7H9V17H7V7Z" fill="#FFE0E8"/>
+        <path d="M11 7H16C17.6569 7 19 8.34315 19 10C19 11.6569 17.6569 13 16 13H11V7Z" fill="#FFE0E8"/>
+    </svg>
+);
+
+const CanvaIcon = (props) => (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <rect width="24" height="24" rx="12" fill="#00C4CC"/>
+        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z" fill="white" fill-opacity="0.3"/>
+        <path d="M12 6C8.69 6 6 8.69 6 12C6 15.31 8.69 18 12 18C15.31 18 18 15.31 18 12C18 8.69 15.31 6 12 6ZM12 16C9.79 16 8 14.21 8 12C8 9.79 9.79 8 12 8C14.21 8 16 9.79 16 12C16 14.21 14.21 16 12 16Z" fill="white"/>
+    </svg>
+);
+
+const CorelDrawIcon = (props) => (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <rect width="24" height="24" rx="4" fill="#008E44"/>
+        <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" fill="#E6F4EC"/>
+        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#99D6B9"/>
+        <path d="M2 7V17L12 22V12L2 7Z" fill="#4DB280"/>
+    </svg>
 );
 
 const UserResearchIcon = (props) => (
@@ -84,9 +100,11 @@ const TeamworkIcon = (props) => (
 export const skillIcons: { [key: string]: React.ElementType } = {
   Figma: FigmaIcon,
   "Adobe XD": AdobeXDIcon,
-  Photoshop: PhotoshopIcon,
-  Illustrator: IllustratorIcon,
-  Sketch: SketchIcon,
+  "Adobe Photoshop": PhotoshopIcon,
+  "Adobe Illustrator": IllustratorIcon,
+  "Adobe In Design": InDesignIcon,
+  Canva: CanvaIcon,
+  CorelDraw: CorelDrawIcon,
   "User Research": UserResearchIcon,
   Prototyping: PrototypingIcon,
   Wireframing: WireframingIcon,
