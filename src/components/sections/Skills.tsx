@@ -5,7 +5,6 @@ import React from 'react';
 
 const skills = {
   "Design Tools": ["Figma", "Adobe XD", "Photoshop", "Illustrator", "Sketch"],
-  "Development": ["HTML", "CSS", "JavaScript", "React", "Next.js", "Tailwind CSS"],
   "Soft Skills": ["User Research", "Prototyping", "Wireframing", "Communication", "Teamwork"]
 }
 

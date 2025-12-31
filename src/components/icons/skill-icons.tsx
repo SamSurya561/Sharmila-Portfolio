@@ -44,56 +44,6 @@ const SketchIcon = (props) => (
   </svg>
 );
 
-const HtmlIcon = (props) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path d="M2 2L3.5 22L12 24L20.5 22L22 2H2Z" fill="#E34F26"/>
-    <path d="M12 4V21.5L19 19.5L20.5 4H12Z" fill="#F16529"/>
-    <path d="M12 9H16.5L16 14.5L12 15.5V12.5H8.5L8 9H12Z" fill="#EBEBEB"/>
-    <path d="M12 18.5L14 18L14.5 12.5H12V15.5H8.5L8 11H12V9H7.5L8 15L12 18.5Z" fill="white"/>
-  </svg>
-);
-
-const CssIcon = (props) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path d="M2 2L3.5 22L12 24L20.5 22L22 2H2Z" fill="#1572B6"/>
-    <path d="M12 4V21.5L19 19.5L20.5 4H12Z" fill="#33A9DC"/>
-    <path d="M12 9H16.5L16 14.5L12 15.5V12.5H8.5L8 9H12Z" fill="white"/>
-    <path d="M12 18.5L14 18L14.5 12.5H12V15.5H8.5L8 11H12V9H7.5L8 15L12 18.5Z" fill="#EBEBEB"/>
-  </svg>
-);
-
-const JavaScriptIcon = (props) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <rect width="24" height="24" fill="#F7DF1E"/>
-    <path d="M8.24,18.42H10.12V10.18H6.38v1.88H8.24Zm4.28-4.2a2.4,2.4,0,0,0,1.86-2.82,2.3,2.3,0,0,0-2.3-1.68H9.72v9H11.6v-3.3h.42a2.38,2.38,0,0,0,2.5-2.2Zm-2.36-2.52h.5a.6.6,0,1,1,0,1.2h-.5Zm0,4.24h.6a.78.78,0,0,1,.84.86.76.76,0,0,1-.82.84h-.62Z" fill="#000"/>
-  </svg>
-);
-
-const ReactIcon = (props) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <circle cx="12" cy="12" r="2" fill="#61DAFB"/>
-    <g>
-      <ellipse cx="12" cy="12" rx="11" ry="4.2" stroke="#61DAFB" strokeWidth="1"/>
-      <ellipse cx="12" cy="12" rx="11" ry="4.2" transform="rotate(60 12 12)" stroke="#61DAFB" strokeWidth="1"/>
-      <ellipse cx="12" cy="12" rx="11" ry="4.2" transform="rotate(120 12 12)" stroke="#61DAFB" strokeWidth="1"/>
-    </g>
-  </svg>
-);
-
-const NextjsIcon = (props) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <circle cx="12" cy="12" r="12" fill="black"/>
-    <path d="M16.5 7.5L10 18H8L14.5 7.5H16.5Z" fill="white"/>
-    <path d="M10 7.5H8.5V18H10V7.5Z" fill="white"/>
-  </svg>
-);
-
-const TailwindCssIcon = (props) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM17.15 10.1C16.8 11.2 16.03 12 15 12C13.97 12 13.2 11.2 12.85 10.1C12.5 8.99 13.27 8.2 14.3 8.2C15.33 8.2 16.1 8.99 16.45 10.1H17.15V10.1ZM9.15 10.1C8.8 11.2 8.03 12 7 12C5.97 12 5.2 11.2 4.85 10.1C4.5 8.99 5.27 8.2 6.3 8.2C7.33 8.2 8.1 8.99 8.45 10.1H9.15V10.1Z" fill="#38B2AC"/>
-  </svg>
-);
-
 const UserResearchIcon = (props) => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="currentColor"/>
@@ -143,12 +93,6 @@ export const skillIcons: { [key: string]: React.ElementType } = {
   Photoshop: PhotoshopIcon,
   Illustrator: IllustratorIcon,
   Sketch: SketchIcon,
-  HTML: HtmlIcon,
-  CSS: CssIcon,
-  JavaScript: JavaScriptIcon,
-  React: ReactIcon,
-  "Next.js": NextjsIcon,
-  "Tailwind CSS": TailwindCssIcon,
   "User Research": UserResearchIcon,
   Prototyping: PrototypingIcon,
   Wireframing: WireframingIcon,
