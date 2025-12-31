@@ -123,7 +123,7 @@ export default function Navbar() {
                   document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
                 }}
                 className={cn(
-                  "relative z-10 flex flex-col items-center justify-center text-xs font-medium transition-colors w-16 h-12 rounded-full",
+                  "relative z-10 flex flex-col items-center justify-center text-xs font-medium transition-colors w-20 h-12 rounded-full",
                   activeSection === link.href.substring(1) ? "text-foreground" : "text-foreground/60 hover:text-foreground"
                 )}
               >
