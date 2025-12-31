@@ -2,9 +2,9 @@
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { ArrowRight } from 'lucide-react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useCollection } from '@/firebase/firestore/use-collection'
-import { collection, query, orderBy, DocumentData, limit } from 'firebase/firestore'
+import { collection, query, orderBy, DocumentData } from 'firebase/firestore'
 import { useFirestore } from '@/firebase'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -15,8 +15,6 @@ const ProjectCard = ({ project }: { project: DocumentData }) => {
   const { title, categories, imageUrl, pills, summary } = project;
   const allTags = [...(categories || []), ...(pills || [])];
 
-  // Logic to determine grid span based on index or other properties
-  // This is a placeholder. You can implement your own logic.
   const isFeatured = allTags.includes('Mobile App') || allTags.includes('Web Design');
   const span = isFeatured ? "md:col-span-2" : "md:col-span-1";
   const height = "md:h-96";
@@ -55,7 +53,6 @@ const ProjectCard = ({ project }: { project: DocumentData }) => {
           </Button>
         </div>
       </div>
-      {/* Glare Effect */}
       <motion.div
         className="absolute top-0 left-[-100%] w-[100px] h-full z-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
         animate={{
@@ -79,46 +76,45 @@ const ProjectCard = ({ project }: { project: DocumentData }) => {
   )
 }
 
-export default function Projects() {
+export default function AllProjectsPage() {
   const firestore = useFirestore();
-  const projectsQuery = firestore ? query(collection(firestore, 'projects'), orderBy('date', 'desc'), limit(5)) : null;
+  const projectsQuery = firestore ? query(collection(firestore, 'projects'), orderBy('date', 'desc')) : null;
   const { data: projects, loading } = useCollection(projectsQuery);
 
   return (
-    <section id="projects" className="w-full max-w-7xl mx-auto py-24 md:py-32 px-4">
-      <motion.h2
-        className="text-4xl md:text-5xl font-bold mb-12 text-center"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
+    <main className="w-full max-w-7xl mx-auto pt-32 pb-24 md:pt-48 md:pb-32 px-4">
+       <motion.div 
+        className="mb-12"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
+       >
+        <Button variant="outline" className="group rounded-full pl-2 pr-4 py-2 text-md bg-transparent backdrop-blur-sm hover:bg-primary/10 border-white/10" asChild>
+            <Link href="/">
+                <span className="bg-foreground/10 rounded-full p-2 mr-2">
+                    <ArrowLeft className="w-4 h-4 text-foreground/80 group-hover:-translate-x-1 transition-transform"/>
+                </span>
+                Back to Home
+            </Link>
+        </Button>
+      </motion.div>
+
+      <motion.h1
+        className="text-5xl md:text-7xl font-bold mb-12 text-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
       >
-        Featured Projects
-      </motion.h2>
+        All Projects
+      </motion.h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-fr">
-        {loading && Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className={`rounded-3xl p-8 ${i === 0 || i === 3 ? 'md:col-span-2' : 'md:col-span-1'} md:h-96 bg-white/5 dark:bg-black/10 animate-pulse`}></div>
+        {loading && Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className={`rounded-3xl p-8 ${i % 4 === 0 || i % 4 === 3 ? 'md:col-span-2' : 'md:col-span-1'} md:h-96 bg-white/5 dark:bg-black/10 animate-pulse`}></div>
         ))}
         {!loading && projects && projects.map((p) => (
           <ProjectCard key={p.id} project={p} />
         ))}
       </div>
-      <motion.div 
-        className="text-center mt-16"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Button size="lg" className="group rounded-full px-8 py-6 text-lg bg-primary/80 hover:bg-primary text-primary-foreground relative overflow-hidden transition-all duration-300 hover:scale-105 active:scale-100" asChild>
-          <Link href="/projects">
-            <span className="absolute inset-0 bg-gradient-to-r from-accent/50 to-primary/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl"></span>
-            <span className="relative flex items-center gap-2">
-              View All Projects <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </span>
-          </Link>
-        </Button>
-      </motion.div>
-    </section>
+    </main>
   )
 }
