@@ -1,19 +1,28 @@
 'use client'
+import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
 import { useCollection, useFirestore } from '@/firebase'
-import { collection, query, orderBy, DocumentData, limit } from 'firebase/firestore'
+import { collection, query, orderBy, limit } from 'firebase/firestore'
 import Link from 'next/link'
 import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid'
 
 export default function Projects() {
   const firestore = useFirestore();
-  const projectsQuery = firestore ? query(collection(firestore, 'projects'), orderBy('date', 'desc'), limit(5)) : null;
+
+  // FIX: Memoize query to prevent flicker
+  // CHANGED: limit(5) -> limit(4) for a perfect 2-row grid
+  const projectsQuery = useMemo(() => {
+    return firestore ? query(collection(firestore, 'projects'), orderBy('date', 'desc'), limit(4)) : null;
+  }, [firestore]);
+
   const { data: projects, loading } = useCollection(projectsQuery);
 
   const bentoItems = projects?.map((project, i) => ({
     ...project,
+    // Index 0 and 3 are wide (col-span-2), Index 1 and 2 are narrow (col-span-1)
+    // This creates a symmetrical "Large-Small" then "Small-Large" layout
     className: i === 0 || i === 3 ? "md:col-span-2" : "md:col-span-1",
     header: (
       <div className="relative w-full h-full">
@@ -38,7 +47,7 @@ export default function Projects() {
       >
         Featured Projects
       </motion.h2>
-      
+
       {loading && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="md:col-span-2 h-96 rounded-3xl bg-white/5 dark:bg-black/10 animate-pulse"></div>
@@ -47,7 +56,7 @@ export default function Projects() {
           <div className="md:col-span-2 h-96 rounded-3xl bg-white/5 dark:bg-black/10 animate-pulse"></div>
         </div>
       )}
-      
+
       {!loading && projects && (
         <BentoGrid className="max-w-7xl mx-auto">
           {bentoItems.map((item, i) => (
@@ -62,7 +71,7 @@ export default function Projects() {
         </BentoGrid>
       )}
 
-      <motion.div 
+      <motion.div
         className="text-center mt-16"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

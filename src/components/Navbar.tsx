@@ -58,7 +58,7 @@ export default function Navbar() {
         }
       }
     };
-    
+
     updateIndicator();
     window.addEventListener('resize', updateIndicator);
 
@@ -74,13 +74,13 @@ export default function Navbar() {
     }
 
   }, [activeSection, isMobileMenuOpen]);
-  
+
   function onDragEnd(event: any, info: any) {
     if (!navRef.current) return;
     const navBounds = navRef.current.getBoundingClientRect();
     const indicatorWidth = indicatorStyle.width;
     let finalPosition = info.point.x - navBounds.left - indicatorWidth / 2;
-    
+
     let closestLink = null;
     let minDistance = Infinity;
 
@@ -89,8 +89,8 @@ export default function Navbar() {
     for (let i = 0; i < linkElements.length; i++) {
       const linkEl = linkElements[i];
       const linkCenter = linkEl.offsetLeft + linkEl.offsetWidth / 2;
-      const distance = Math.abs(finalPosition + indicatorWidth/2 - linkCenter);
-      
+      const distance = Math.abs(finalPosition + indicatorWidth / 2 - linkCenter);
+
       if (distance < minDistance) {
         minDistance = distance;
         closestLink = links[i];
@@ -116,31 +116,33 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        className="fixed top-4 left-0 right-0 z-40 flex justify-center px-4"
+        // ADDED: pointer-events-none so clicks pass through the empty areas
+        className="fixed top-4 left-0 right-0 z-40 flex justify-center px-4 pointer-events-none"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30, delay: 0.5 }}
       >
         <nav
           className={cn(
-            "flex items-center justify-center rounded-full p-1 md:p-2 w-full max-w-sm md:max-w-xl",
+            // ADDED: pointer-events-auto to re-enable clicks on the actual navbar
+            "flex items-center justify-center rounded-full p-1 md:p-2 w-full max-w-sm md:max-w-xl pointer-events-auto",
             LIQUID_GLASS_CLASSES
           )}
         >
           {/* Mobile Hamburger Menu Button */}
           <div className="flex justify-between items-center w-full md:hidden px-4">
-              <span className="text-sm font-bold">{activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</span>
-              <Button size="icon" variant="ghost" onClick={() => setIsMobileMenuOpen(true)}>
-                  <Menu className="w-6 h-6"/>
-              </Button>
+            <span className="text-sm font-bold">{activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</span>
+            <Button size="icon" variant="ghost" onClick={() => setIsMobileMenuOpen(true)}>
+              <Menu className="w-6 h-6" />
+            </Button>
           </div>
 
           {/* Desktop Navigation */}
           <ul ref={navRef} className="relative hidden md:flex items-center w-full justify-around">
             <motion.div
               className="absolute h-full rounded-full nav-indicator cursor-grab"
-              style={{...indicatorStyle}}
-              animate={{...indicatorStyle}}
+              style={{ ...indicatorStyle }}
+              animate={{ ...indicatorStyle }}
               transition={{ type: 'spring', stiffness: 500, damping: 40 }}
               drag="x"
               dragControls={dragControls}
@@ -162,7 +164,7 @@ export default function Navbar() {
                     activeSection === link.href.substring(1) ? "text-foreground" : "text-foreground/60 hover:text-foreground"
                   )}
                 >
-                  <link.icon className="w-5 h-5 mb-1"/>
+                  <link.icon className="w-5 h-5 mb-1" />
                   <span className="hidden sm:inline">{link.label}</span>
                 </Link>
               </li>
@@ -173,49 +175,49 @@ export default function Navbar() {
 
       {/* Mobile Menu Panel */}
       {isMobileMenuOpen && (
-          <motion.div 
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 md:hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setIsMobileMenuOpen(false)}
+        <motion.div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 md:hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          <motion.div
+            className="fixed top-0 right-0 h-full w-3/4 max-w-[300px] bg-background/80 backdrop-blur-xl border-l border-white/10 p-8"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: 'spring', stiffness: 400, damping: 40 }}
+            onClick={(e) => e.stopPropagation()}
           >
-              <motion.div 
-                  className="fixed top-0 right-0 h-full w-3/4 max-w-[300px] bg-background/80 backdrop-blur-xl border-l border-white/10 p-8"
-                  initial={{ x: "100%" }}
-                  animate={{ x: 0 }}
-                  exit={{ x: "100%" }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 40 }}
-                  onClick={(e) => e.stopPropagation()}
-              >
-                  <Button size="icon" variant="ghost" onClick={() => setIsMobileMenuOpen(false)} className="absolute top-4 right-4">
-                      <X className="w-6 h-6"/>
-                  </Button>
-                  <ul className="flex flex-col items-start space-y-6 mt-16">
-                      {links.map((link) => (
-                          <li key={link.href}>
-                              <a
-                                  href={link.href}
-                                  onClick={(e) => {
-                                      e.preventDefault();
-                                      handleMobileLinkClick(link.href)
-                                  }}
-                                  className={cn(
-                                      "flex items-center gap-4 text-xl font-medium transition-colors",
-                                      activeSection === link.href.substring(1) ? "text-foreground" : "text-foreground/60 hover:text-foreground"
-                                  )}
-                              >
-                                  <link.icon className="w-6 h-6"/>
-                                  {link.label}
-                              </a>
-                          </li>
-                      ))}
-                  </ul>
-                  <div className="absolute bottom-8 left-8">
-                    <ThemeToggle />
-                  </div>
-              </motion.div>
+            <Button size="icon" variant="ghost" onClick={() => setIsMobileMenuOpen(false)} className="absolute top-4 right-4">
+              <X className="w-6 h-6" />
+            </Button>
+            <ul className="flex flex-col items-start space-y-6 mt-16">
+              {links.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleMobileLinkClick(link.href)
+                    }}
+                    className={cn(
+                      "flex items-center gap-4 text-xl font-medium transition-colors",
+                      activeSection === link.href.substring(1) ? "text-foreground" : "text-foreground/60 hover:text-foreground"
+                    )}
+                  >
+                    <link.icon className="w-6 h-6" />
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div className="absolute bottom-8 left-8">
+              <ThemeToggle />
+            </div>
           </motion.div>
+        </motion.div>
       )}
 
       {/* Desktop Theme Toggle */}

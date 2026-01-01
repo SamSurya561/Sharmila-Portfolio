@@ -29,7 +29,6 @@ export default function About() {
               <Image
                 src={profileImage.imageUrl}
                 alt={profileImage.description}
-                data-ai-hint={profileImage.imageHint}
                 width={800}
                 height={1000}
                 className="object-cover w-full h-full scale-105"
@@ -37,7 +36,7 @@ export default function About() {
             )}
           </motion.div>
         </motion.div>
-        <motion.div 
+        <motion.div
           className="md:col-span-3"
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}

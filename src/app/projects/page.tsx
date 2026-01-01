@@ -1,4 +1,5 @@
 'use client'
+import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -11,7 +12,7 @@ import Link from 'next/link'
 const LIQUID_GLASS_CLASSES = "backdrop-blur-xl saturate-180 bg-white/5 dark:bg-black/10 border border-white/10 shadow-lg shadow-black/20 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]"
 
 const ProjectCard = ({ project }: { project: DocumentData }) => {
-  const { title, categories, imageUrl, pills, summary } = project;
+  const { id, title, categories, imageUrl, pills, summary } = project; // <--- Make sure 'id' is extracted
   const allTags = [...(categories || []), ...(pills || [])];
 
   const isFeatured = allTags.includes('Mobile App') || allTags.includes('Web Design');
@@ -46,17 +47,20 @@ const ProjectCard = ({ project }: { project: DocumentData }) => {
           <h3 className="text-xl md:text-2xl font-bold text-foreground">{title}</h3>
           <p className="text-foreground/80 mt-2 text-sm md:text-base">{summary}</p>
         </div>
+
+        {/* UPDATED BUTTON SECTION */}
         <div className="mt-8">
-          <Button variant="outline" className="rounded-full bg-transparent border-foreground/50 hover:bg-foreground/10 text-foreground">
-            View Case Study <ArrowRight className="w-4 h-4 ml-2" />
+          <Button asChild variant="outline" className="rounded-full bg-transparent border-foreground/50 hover:bg-foreground/10 text-foreground">
+            <Link href={`/projects/${id}`}>
+              View Project <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
           </Button>
         </div>
+
       </div>
       <motion.div
         className="absolute top-0 left-[-100%] w-[100px] h-full z-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-        animate={{
-          x: ['0%', '300%'],
-        }}
+        animate={{ x: ['0%', '300%'] }}
         transition={{
           repeat: Infinity,
           repeatType: 'mirror',
@@ -64,12 +68,8 @@ const ProjectCard = ({ project }: { project: DocumentData }) => {
           ease: 'linear',
           delay: Math.random() * 5,
         }}
-        style={{
-          opacity: 0
-        }}
-        whileHover={{
-          opacity: 1
-        }}
+        style={{ opacity: 0 }}
+        whileHover={{ opacity: 1 }}
       />
     </motion.div>
   )
@@ -77,24 +77,28 @@ const ProjectCard = ({ project }: { project: DocumentData }) => {
 
 export default function AllProjectsPage() {
   const firestore = useFirestore();
-  const projectsQuery = firestore ? query(collection(firestore, 'projects'), orderBy('date', 'desc')) : null;
+
+  const projectsQuery = useMemo(() => {
+    return firestore ? query(collection(firestore, 'projects'), orderBy('date', 'desc')) : null;
+  }, [firestore]);
+
   const { data: projects, loading } = useCollection(projectsQuery);
 
   return (
     <main className="w-full max-w-7xl mx-auto pt-32 pb-24 md:pt-48 md:pb-32 px-4">
-       <motion.div 
+      <motion.div
         className="mb-12"
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
-       >
+      >
         <Button variant="outline" className="group rounded-full pl-2 pr-4 py-2 text-md bg-transparent backdrop-blur-sm hover:bg-primary/10 border-white/10" asChild>
-            <Link href="/">
-                <span className="bg-foreground/10 rounded-full p-2 mr-2">
-                    <ArrowLeft className="w-4 h-4 text-foreground/80 group-hover:-translate-x-1 transition-transform"/>
-                </span>
-                Back to Home
-            </Link>
+          <Link href="/">
+            <span className="bg-foreground/10 rounded-full p-2 mr-2">
+              <ArrowLeft className="w-4 h-4 text-foreground/80 group-hover:-translate-x-1 transition-transform" />
+            </span>
+            Back to Home
+          </Link>
         </Button>
       </motion.div>
 
