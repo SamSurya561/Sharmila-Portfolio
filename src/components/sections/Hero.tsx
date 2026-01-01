@@ -3,10 +3,12 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Mail } from 'lucide-react'
 import Link from 'next/link'
+import HeroIconsBackground from './HeroIconsBackground'
 
 export default function Hero() {
   return (
     <section id="home" className="relative w-full h-screen flex flex-col items-center justify-center text-center px-4">
+      <HeroIconsBackground />
       <motion.h2 
         className="text-base md:text-xl uppercase tracking-[0.3em] text-foreground/60 mb-4"
         initial={{ opacity: 0, y: 20 }}
