@@ -116,17 +116,16 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        // ADDED: pointer-events-none so clicks pass through the empty areas
-        className="fixed top-4 left-0 right-0 z-40 flex justify-center px-4 pointer-events-none"
+        className="fixed top-4 left-0 right-0 z-40 flex justify-center px-4"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30, delay: 0.5 }}
       >
         <nav
           className={cn(
-            // ADDED: pointer-events-auto to re-enable clicks on the actual navbar
-            "flex items-center justify-center rounded-full p-1 md:p-2 w-full max-w-sm md:max-w-xl pointer-events-auto",
-            LIQUID_GLASS_CLASSES
+            "flex items-center justify-center rounded-full p-1 md:p-2 w-full max-w-sm md:max-w-xl",
+            LIQUID_GLASS_CLASSES,
+            isScrolled && "scale-[0.97] bg-white/10 dark:bg-black/20"
           )}
         >
           {/* Mobile Hamburger Menu Button */}
@@ -153,20 +152,20 @@ export default function Navbar() {
             />
             {links.map((link) => (
               <li key={link.href} data-section={link.href.substring(1)} className="flex-1">
-                <Link
-                  href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
-                  }}
+                <button
+                  onClick={() =>
+                    document.querySelector(link.href)?.scrollIntoView({ behavior: "smooth" })
+                  }
                   className={cn(
                     "relative z-10 flex flex-col items-center justify-center text-xs font-medium transition-colors h-14 w-full rounded-full",
-                    activeSection === link.href.substring(1) ? "text-foreground" : "text-foreground/60 hover:text-foreground"
+                    activeSection === link.href.substring(1)
+                      ? "text-foreground"
+                      : "text-foreground/60 hover:text-foreground"
                   )}
                 >
                   <link.icon className="w-5 h-5 mb-1" />
                   <span className="hidden sm:inline">{link.label}</span>
-                </Link>
+                </button>
               </li>
             ))}
           </ul>

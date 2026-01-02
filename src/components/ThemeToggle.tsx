@@ -15,7 +15,7 @@ export default function ThemeToggle({ className }: { className?: string }) {
   }
 
   return (
-    <motion.div 
+    <motion.div
       className={cn("md:fixed md:top-6 md:right-6 md:z-50", className)}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
